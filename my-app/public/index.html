@@ -1,40 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<head>
+  <!-- Title -->
+  <title>Fitness</title>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./favicon.ico">
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans%7CMerriweather%7COpen+Sans%3A300%2C400%2C600%2C700%2C800%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+
+  <!-- CSS Global Compulsory -->
+  <link rel="stylesheet" href="./assets/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/vendor/icon-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./assets/vendor/icon-line-pro/style.css">
+
+  <!-- CSS Implementing Plugins -->
+  <link rel="stylesheet" href="./assets/vendor/icon-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./assets/vendor/icon-hs/style.css">
+  <link rel="stylesheet" href="./assets/vendor/hamburgers/hamburgers.min.css">
+  <link rel="stylesheet" href="./assets/vendor/dzsparallaxer/dzsparallaxer.css">
+  <link rel="stylesheet" href="./assets/vendor/dzsparallaxer/dzsscroller/scroller.css">
+  <link rel="stylesheet" href="./assets/vendor/dzsparallaxer/advancedscroller/plugin.css">
+  <link rel="stylesheet" href="./assets/vendor/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="./assets/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css">
+  <link rel="stylesheet" href="./assets/vendor/fancybox/jquery.fancybox.css">
+
+  <!-- CSS Template -->
+  <link rel="stylesheet" href="assets/css/styles.op-consulting.css">
+
+  <!-- Revolution Slider -->
+  <link rel="stylesheet" href="./assets/vendor/revolution-slider/revolution/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css">
+  <link rel="stylesheet" href="./assets/vendor/revolution-slider/revolution/css/settings.css">
+  <link rel="stylesheet" href="./assets/vendor/revolution-slider/revolution/css/layers.css">
+  <link rel="stylesheet" href="./assets/vendor/revolution-slider/revolution/css/navigation.css">
+  <link rel="stylesheet" href="./assets/vendor/revolution-slider/revolution-addons/typewriter/css/typewriter.css">
+
+  <!-- CSS Customization -->
+  <link rel="stylesheet" href="./assets/css/custom.css">
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+
+  <script src="./assets/vendor/jquery/jquery.min.js"></script>
+  <script src="./assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+  <script src="./assets/vendor/popper.min.js"></script>
+  <script src="./assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+  <!-- JS Implementing Plugins -->
+  <script src="./assets/vendor/appear.js"></script>
+  <script src="./assets/vendor/slick-carousel/slick/slick.js"></script>
+  <script src="./assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+  <script src="./assets/vendor/dzsparallaxer/dzsparallaxer.js"></script>
+  <script src="./assets/vendor/dzsparallaxer/dzsscroller/scroller.js"></script>
+  <script src="./assets/vendor/dzsparallaxer/advancedscroller/plugin.js"></script>
+  <script src="./assets/vendor/fancybox/jquery.fancybox.js"></script>
+
+  <!-- JS Unify -->
+  <script src="./assets/js/hs.core.js"></script>
+  <script src="./assets/js/components/hs.header.js"></script>
+  <script src="./assets/js/helpers/hs.hamburgers.js"></script>
+  <script src="./assets/js/components/hs.scroll-nav.js"></script>
+  <script src="./assets/js/components/hs.counter.js"></script>
+  <script src="./assets/js/components/hs.carousel.js"></script>
+  <script src="./assets/js/components/hs.cubeportfolio.js"></script>
+  <script src="./assets/js/components/hs.popup.js"></script>
+  <script src="./assets/js/components/hs.go-to.js"></script>
+
+  <!-- JS Revolution Slider -->
+  <script src="./assets/vendor/revolution-slider/revolution/js/jquery.themepunch.tools.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/jquery.themepunch.revolution.min.js"></script>
+
+  <script src="./assets/vendor/revolution-slider/revolution-addons/typewriter/js/revolution.addon.typewriter.min.js"></script>
+
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+  <script src="./assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.video.min.js"></script>
+
+  <!-- JS Customization -->
+  <script src="./assets/js/custom.js"></script>
+
+  <!-- JS Plugins Init. -->
+  <script>
+    $(document).on('ready', function () {
+      // initialization of carousel
+      $.HSCore.components.HSCarousel.init('.js-carousel');
+
+      // initialization of header
+      $.HSCore.components.HSHeader.init($('#js-header'));
+      $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+      // initialization of go to section
+      $.HSCore.components.HSGoTo.init('.js-go-to');
+
+      // initialization of counters
+      var counters = $.HSCore.components.HSCounter.init('[class*="js-counter"]');
+
+      // initialization of popups
+      $.HSCore.components.HSPopup.init('.js-fancybox');
+    });
+
+    $(window).on('load', function () {
+      // initialization of HSScrollNav
+      $.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
+        duration: 700
+      });
+
+      // initialization of cubeportfolio
+      $.HSCore.components.HSCubeportfolio.init('.cbp');
+    });
+  </script>
+</body>
+
 </html>
