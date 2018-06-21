@@ -5,6 +5,7 @@ import Blogs from './components/toppannelroutes/blogs/Blogs';
 import MacroCalucaltor from './components/toppannelroutes/macrocalculator/MacroCalculator';
 import WorkoutPlans from './components/toppannelroutes/workoutplans/WorkoutPlans';
 import Supplements from './components/toppannelroutes/supplements/Supplements';
+import Logout from './components/toppannelroutes/user/Logout';
 
 const Routes = (props) => (
     <Router>
@@ -26,19 +27,22 @@ const Routes = (props) => (
                             <div className="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
                                 <ul id="js-scroll-nav" className="navbar-nav text-uppercase g-letter-spacing-1 g-font-size-12 g-pt-20 g-pt-0--lg ml-auto">
                                     <li className="nav-item g-mr-15--lg g-mb-7 g-mb-0--lg">
-                                        <Link to="/" className="nav-link p-0">Main</Link>
+                                        {props.isLoggedIn || <Link to="/" className="nav-link p-0">Sign In</Link>}
                                     </li>
                                     <li className="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
-                                        <Link to="/workoutplans" className="nav-link p-0">Workout Plans</Link>
+                                        {!props.isLoggedIn || <Link to="/workoutplans" className="nav-link p-0">Workout Plans</Link>}
                                     </li>
                                     <li className="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
-                                        <Link to="/macrocalculator" className="nav-link p-0">Macro Calculator</Link>
+                                        {!props.isLoggedIn || <Link to="/macrocalculator" className="nav-link p-0">Macro Calculator</Link>}
                                     </li>
                                     <li className="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
-                                        <Link to="/blogs" className="nav-link p-0">Blogs</Link>
+                                        {!props.isLoggedIn || <Link to="/blogs" className="nav-link p-0">Blogs</Link>}
                                     </li>
                                     <li className="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
-                                        <Link to="/supplements" className="nav-link p-0">Supplements</Link>
+                                        {!props.isLoggedIn || <Link to="/supplements" className="nav-link p-0">Supplements</Link>}
+                                    </li>
+                                    <li className="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
+                                        {!props.isLoggedIn || <Link to="/logout" className="nav-link p-0">Logout</Link>}
                                     </li>
                                 </ul>
                             </div>
@@ -67,6 +71,7 @@ const Routes = (props) => (
             <Route path="/macrocalculator" component={MacroCalucaltor} />
             <Route path="/blogs" component={Blogs} />
             <Route path="/supplements" component={Supplements} />
+            <Route path="/logout" component={Logout} />
         </div>
     </Router>
 );

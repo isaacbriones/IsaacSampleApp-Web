@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import RegisterInput from './Register';
 import UserApi from '../../../api/UserApi';
+import { connect } from 'react-redux';
+import { loginUser } from '../../../actions/UserAction';
 
 class Home extends React.Component {
     constructor(props) {
@@ -11,6 +13,7 @@ class Home extends React.Component {
             email: "",
             password: "",
             cPassword: "",
+            nameError: false,
             emailError: false,
             passwordError: false,
             cPasswordError: false,
@@ -24,23 +27,82 @@ class Home extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.onSubmitRegister = this.onSubmitRegister.bind(this);
         this.onSubmitRegister_Success = this.onSubmitRegister_Success.bind(this);
+        this.onSubmitLogin = this.onSubmitLogin.bind(this);
+        this.onLogin_Success = this.onLogin_Success.bind(this);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.user.isLoggedIn) {
+            this.props.history.push("/workoutplans");
+        }
+        else if (prevProps.user.loginSuccess !== false && this.props.user.loginSuccess === false) {
+            this.setState({
+                ...this.state,
+                loginError: true,
+                buttonClicked: false
+            })
+        }
+    }
+
+    onSubmitLogin(evt) {
+        evt.preventDefault();
+        this.validate(this.state.email, this.state.password);
     }
 
     onSubmitRegister() {
-        debugger;
         let data = {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password
         }
-        UserApi.Register(data, this.onSubmitRegister_Success, this.onSubmitRegister_Error)
+        this.setState({
+            registerBtn: true
+        })
+        this.validate(this.state.email, this.state.password, this.state.cPassword);
     }
 
     onSubmitRegister_Success(resp) {
         console.log(resp);
+        alert("Account was successfully made! Please Sign In")
     }
 
     onSubmitRegister_Error(err) {
+        console.log(err);
+    }
+
+    validate(email, password, cPassword, name) {
+        this.setState({
+            ...this.state,
+            emailError: !/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(email),
+            passwordError: !/(?=.{8,})(?=.*[0-9])/.test(password),
+            cPasswordError: !(password === cPassword),
+            nameError: !(this.state.name > 3),
+            buttonClicked: true,
+        }, () => { this.callApi(); });
+    }
+
+    callApi() {
+        if (this.state.loginBtn == true) {
+            if (this.state.emailError === false && this.state.passwordError === false) {
+                let data = {
+                    email: this.state.email,
+                    password: this.state.password
+                }
+                this.props.login(data)
+            } else {
+            }
+        } else if (this.state.registerBtn == true) {
+            if (this.state.emailError === false && this.state.passwordError === false && this.state.cPasswordError === false) {
+                UserApi.Register({ email: this.state.email, password: this.state.password }, this.onSubmitRegister_Success, this.onSubmitRegister_Error);
+            }
+        }
+    }
+
+    onLogin_Success(resp) {
+        console.log(resp);
+        this.props.history.push("/workoutplans");
+    }
+
+    onLogin_Error(err) {
         console.log(err);
     }
 
@@ -95,6 +157,7 @@ class Home extends React.Component {
         }
         return (
             <div className="container">
+                <br />
                 <div className="g-bg-img-hero g-bg-pos-top-center" style={divStyle}>
                     <div className="container g-pt-100 g-pb-100 g-pb-130--lg">
                         <div className="g-pos-rel">
@@ -113,7 +176,7 @@ class Home extends React.Component {
                                             <div className="g-mb-20">
                                                 {!this.state.registerForm && <div className="g-mb-10">
                                                     <RegisterInput type="text" id="name" name="name" icon="fa fa-user" placeholder="Full Name" value={this.state.name} onChange={this.handleChange} />
-                                                    <p style={{ background: "red", color: "white" }} className="form-control-feedback"> {this.state.cPasswordError ? "Name must be at least 3 characters long" : ""} </p>
+                                                    <p style={{ background: "red", color: "white" }} className="form-control-feedback"> {this.state.nameError ? "Name must be at least 3 characters long" : ""} </p>
                                                 </div>}
                                                 <br />
                                                 <RegisterInput type="email" id="email" name="email" value={this.state.email} onChange={this.handleChange} icon="fa fa-envelope" placeholder="Email" />
@@ -147,4 +210,18 @@ class Home extends React.Component {
         );
     }
 }
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        user: state.UserReducer
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (data) => {
+            dispatch(loginUser(data));
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
