@@ -6,6 +6,7 @@ import MacroCalucaltor from './components/toppannelroutes/macrocalculator/MacroC
 import WorkoutPlans from './components/toppannelroutes/workoutplans/WorkoutPlans';
 import Supplements from './components/toppannelroutes/supplements/Supplements';
 import Logout from './components/toppannelroutes/user/Logout';
+import SupplementUpdate from './components/toppannelroutes/supplements/SupplementUpdate';
 
 const Routes = (props) => (
     <Router>
@@ -39,7 +40,7 @@ const Routes = (props) => (
                                         {!props.isLoggedIn || <Link to="/blogs" className="nav-link p-0">Blogs</Link>}
                                     </li>
                                     <li className="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
-                                        {props.isLoggedIn || <Link to="/supplements" className="nav-link p-0">Supplements</Link>}
+                                        {!props.isLoggedIn || <Link to="/supplements" className="nav-link p-0">Supplements</Link>}
                                     </li>
                                     <li className="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
                                         {!props.isLoggedIn || <Link to="/logout" className="nav-link p-0">Logout</Link>}
@@ -70,8 +71,8 @@ const Routes = (props) => (
             <Route path="/workoutplans" component={WorkoutPlans} />
             <Route path="/macrocalculator" component={MacroCalucaltor} />
             <Route path="/blogs" component={Blogs} />
-            <Route exact path="/supplements" component={Supplements} />
-            <Route path="/supplements/:id" component={Supplements} />
+            <Route path="/supplements" component={Supplements} />
+            <Route path="/supplementupdate/:id" component={SupplementUpdate} />
             <Route path="/logout" component={Logout} />
         </div>
     </Router>

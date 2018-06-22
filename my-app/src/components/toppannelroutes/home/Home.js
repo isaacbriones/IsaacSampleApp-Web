@@ -78,7 +78,7 @@ class Home extends React.Component {
             emailError: !/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(email),
             passwordError: !/(?=.{8,})(?=.*[0-9])/.test(password),
             cPasswordError: !(password === cPassword),
-            nameError: !(this.state.name > 3),
+            nameError: (this.state.name > 3),
             buttonClicked: true,
         }, () => { this.callApi(); });
     }
@@ -95,7 +95,7 @@ class Home extends React.Component {
             }
         } else if (this.state.registerBtn == true) {
             if (this.state.emailError === false && this.state.passwordError === false && this.state.cPasswordError === false) {
-                UserApi.Register({ email: this.state.email, password: this.state.password }, this.onSubmitRegister_Success, this.onSubmitRegister_Error);
+                UserApi.Register({ email: this.state.email, password: this.state.password, name: this.state.name }, this.onSubmitRegister_Success, this.onSubmitRegister_Error);
             }
         }
     }
@@ -168,7 +168,7 @@ class Home extends React.Component {
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
-                                <strong>Well done!</strong> You successfully read this important alert message.
+                                <strong>Well done!</strong> You successfully registered a account, Please Sign In!.
                         </div>
                             : null
                         }

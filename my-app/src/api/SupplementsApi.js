@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-let baseUrl = "http://localhost:61645/api/supplement"
+let baseUrl = "http://localhost:61645/api/supplement/"
 
 class SupplementApi {
     static Insert(data, success, error) {
@@ -9,12 +9,12 @@ class SupplementApi {
             .catch(error);
     }
     static Update(id, data, success, error) {
-        Axios.put(baseUrl + "/" + id, data, { withCredentials: false })
+        Axios.put(baseUrl + id, data, { withCredentials: false })
             .then(success)
             .catch(error);
     }
     static SelectById(data, success, error) {
-        Axios.get(baseUrl, data, { withCredentials: false })
+        Axios.get(baseUrl + data, { withCredentials: false })
             .then(success)
             .catch(error);
     }
@@ -24,7 +24,7 @@ class SupplementApi {
             .catch(error);
     }
     static Delete(id, success, error) {
-        Axios.delete(baseUrl + "/" + id, { withCredentials: false })
+        Axios.delete(baseUrl + id, { withCredentials: false })
             .then(success)
             .catch(error);
     }

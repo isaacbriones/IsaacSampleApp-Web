@@ -45,6 +45,7 @@ class Supplements extends React.Component {
 
     onUpdate(id) {
         console.log(id)
+        this.props.history.push("/supplementupdate/" + id)
     }
 
     render() {
@@ -72,7 +73,7 @@ class Supplements extends React.Component {
                                         <div className="card" style={{ width: "18rem" }}>
                                             <br />
                                             <h5 className="card-title"><strong>{item.supplementName}</strong></h5>
-                                            <img className="card-img-top" src={item.supplementImageUrl} alt="Card image cap" />
+                                            <img className="card-img-top" style={{ width: "65px", height: "100px", margin: "auto" }} src={item.supplementImageUrl} alt="Card image cap" />
                                             <div className="card-body">
                                                 <p className="card-text" ><strong>{item.brand}</strong></p>
                                                 <p className="card-text">{item.description}</p>
