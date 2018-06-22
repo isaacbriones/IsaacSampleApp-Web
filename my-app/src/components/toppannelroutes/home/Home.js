@@ -22,7 +22,8 @@ class Home extends React.Component {
             loginBtn: true,
             registerBtn: false,
             registerForm: true,
-            loginForm: false
+            loginForm: false,
+            alertShowing: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.onSubmitRegister = this.onSubmitRegister.bind(this);
@@ -62,7 +63,9 @@ class Home extends React.Component {
 
     onSubmitRegister_Success(resp) {
         console.log(resp);
-        alert("Account was successfully made! Please Sign In")
+        this.setState({
+            alertShowing: true
+        })
     }
 
     onSubmitRegister_Error(err) {
@@ -160,6 +163,15 @@ class Home extends React.Component {
                 <br />
                 <div className="g-bg-img-hero g-bg-pos-top-center" style={divStyle}>
                     <div className="container g-pt-100 g-pb-100 g-pb-130--lg">
+                        {this.state.alertShowing ?
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Well done!</strong> You successfully read this important alert message.
+                        </div>
+                            : null
+                        }
                         <div className="g-pos-rel">
                             <div className="row">
                                 <div className="col-md-6 offset-md-3" style={{ background: "rgba(240, 248, 255,0.7)", paddingTop: "15px", paddingBottom: "15px" }}>
