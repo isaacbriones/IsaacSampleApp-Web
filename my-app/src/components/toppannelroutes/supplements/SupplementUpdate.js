@@ -1,5 +1,6 @@
 import React from 'react';
 import SupplementsApi from '../../../api/SupplementsApi';
+import FileUploadApi from '../../../api/FileUploadApi';
 
 class SupplementUpdate extends React.Component {
     constructor(props) {
@@ -15,7 +16,9 @@ class SupplementUpdate extends React.Component {
         this.onSuccess = this.onSuccess.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
         this.onUpdate_Success = this.onUpdate_Success.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
+
     componentDidMount() {
         this.getData();
     }
@@ -26,6 +29,7 @@ class SupplementUpdate extends React.Component {
     }
 
     onSuccess(resp) {
+        debugger;
         this.setState({
             supplementName: resp.data.item.supplementName,
             supplementImage: resp.data.item.supplementImageUrl,
@@ -47,6 +51,31 @@ class SupplementUpdate extends React.Component {
         });
     }
 
+    onChange(evt) {
+        this.setState({ supplementImage: evt.target.files[0] })
+    }
+
+    fileUpload(file) {
+        const formData = new FormData();
+        formData.append('UploadedFile', file, file.name);
+        FileUploadApi.FileInsert(formData, this.fileUploadSuccess, this.onSubmit_Error);
+    }
+
+    fileUploadSuccess(resp) {
+        FileUploadApi.FileById(resp.data.item, this.fileByIdSuccess, this.onSubmit_Error);
+        this.setState({ file: '' })
+    }
+
+    fileByIdSuccess(resp) {
+        this.setState({
+            supplementImage: resp.data.item.location
+        });
+    }
+
+    onSubmit_Error(err) {
+        console.log(err);
+    }
+
     onUpdate(som) {
         som.preventDefault();
         let id = parseInt(this.props.match.params.id);
@@ -60,9 +89,11 @@ class SupplementUpdate extends React.Component {
         }
         SupplementsApi.Update(id, data, this.onUpdate_Success, this.onUpdate_Error)
     }
+
     onUpdate_Success(resp) {
         this.props.history.push("/supplements")
     }
+
     onUpdate_Error(err) {
         console.log(err)
     }
@@ -81,9 +112,15 @@ class SupplementUpdate extends React.Component {
                             </div>
                         </div>
                         <div className="form-group row g-mb-25">
-                            <label htmlFor="example-search-input" className="col-2 col-form-label">Supplement Image</label>
+                            <label htmlFor="example-search-input" className="col-2 col-form-label"> Upload Supplement Image</label>
                             <div className="col-10">
-                                <input className="form-control rounded-0 form-control-md" type="url" value={this.state.supplementImage} id="supplementImage" name="supplementImage" onChange={this.handleChange} />
+                                <input className="form-control rounded-0 form-control-md" type="file" id="supplementImage" name="supplementImage" onChange={this.onChange} />
+                            </div>
+                        </div>
+                        <div className="form-group row g-mb-25">
+                            <label htmlFor="example-search-input" className="col-2 col-form-label">Supplement Image Url</label>
+                            <div className="col-10">
+                                <input className="form-control rounded-0 form-control-md" type="url" value={this.state.supplementImage} id="supplementImage" name="supplementImage" onChange={this.onChange} />
                             </div>
                         </div>
                         <div className="form-group row g-mb-25">

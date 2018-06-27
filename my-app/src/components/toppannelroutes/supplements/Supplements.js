@@ -1,5 +1,6 @@
 import React from 'react';
 import SupplementApi from '../../../api/SupplementsApi';
+import FileUploadApi from '../../../api/FileUploadApi';
 
 class Supplements extends React.Component {
     constructor(props) {
@@ -15,6 +16,8 @@ class Supplements extends React.Component {
         }
         this.onGetData_Success = this.onGetData_Success.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.fileUploadSuccess = this.fileUploadSuccess.bind(this);
     }
     componentDidMount() {
         this.getData();
@@ -46,6 +49,27 @@ class Supplements extends React.Component {
     onUpdate(id) {
         console.log(id)
         this.props.history.push("/supplementupdate/" + id)
+    }
+
+    onChange(evt) {
+        this.setState({ supplementImage: evt.target.files[0] })
+    }
+
+    fileUpload(file) {
+        const formData = new FormData();
+        formData.append('UploadedFile', file, file.name);
+        FileUploadApi.FileInsert(formData, this.fileUploadSuccess, this.onSubmit_Error);
+    }
+
+    fileUploadSuccess(resp) {
+        FileUploadApi.FileById(resp.data.item, this.fileByIdSuccess, this.onSubmit_Error);
+        this.setState({ file: '' })
+    }
+
+    fileByIdSuccess(resp) {
+        this.setState({
+            supplementImage: resp.data.item.location
+        });
     }
 
     render() {
@@ -115,10 +139,10 @@ class Supplements extends React.Component {
                                             <br />
                                             <input className="form-control g-brd-none g-bg-secondary g-bg-secondary-dark-v1--focus rounded g-px-20 g-py-12"
                                                 name='image'
-                                                type='url'
+                                                type='file'
                                                 value={this.state.supplementImage}
-                                                onChange={this.handleChange}
-                                                placeholder="Insert Supplement Name here ..." />
+                                                onChange={this.onChange}
+                                            />
                                             <br />
                                             <input className="form-control g-brd-none g-bg-secondary g-bg-secondary-dark-v1--focus rounded g-px-20 g-py-12"
                                                 name='brand'
